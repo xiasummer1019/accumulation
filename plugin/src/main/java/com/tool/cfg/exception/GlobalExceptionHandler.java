@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,28 +17,28 @@ public class GlobalExceptionHandler {
 
     /**
      * 全局异常捕捉处理
+     *
      * @param ex
      * @return
      */
-   /* @ExceptionHandler(Exception.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public AjaxResponse errorHandler(Exception ex) {
-        return AjaxResponse.warning(HttpStatus.OK.value(), ex.getMessage());
-    }
-*/
-    @ExceptionHandler(Exception.class)
-    public ModelAndView handleException(Exception ex, WebRequest request) {
-        ModelAndView mav = new ModelAndView();
-        mav.addObject("ex", ex);
-        return mav;
+        return AjaxResponse.error(ex.getMessage());
     }
 
+    /**
+     * 自定义异常处理类
+     *
+     * @param ex
+     * @return
+     */
     @ExceptionHandler(PromptException.class)
-    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public AjaxResponse handlePromptException(HttpServletRequest request, Exception ex) {
-        return AjaxResponse.warning(HttpStatus.OK.value(), ex.getMessage());
+        return AjaxResponse.warning(ex.getMessage());
     }
 
 

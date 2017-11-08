@@ -2,17 +2,23 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans
-        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
         http://www.springframework.org/schema/context
-        http://www.springframework.org/schema/context/spring-context.xsd">
+        http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
-
-	<context:component-scan base-package="com.framework.service"/>
-	<context:component-scan base-package="com.framework.dao"/>
+	<bean id="systemConfig"  class="com.tool.cfg.base.system.SystemConfig">
+		<property name="properties">
+			<props>
+				<prop key="UrlRoot">http://127.0.0.1:8080</prop><!-- 系统URL根路径 如果有域名配置域名 没有则最好配置为IP地址 -->
+				<prop key="LicensePath">D:\tomcat\apache-tomcat-8.0.41\webapps\CCPS\WEB-INF\license</prop><!-- license相关文件存放绝对路径 -->
+			</props>
+		</property>
+	</bean>
 
 	<!-- 加载并读取数据库连接的配置文件 -->
-	<context:property-placeholder location="classpath:config/db/db_oracle.properties"/>
+	<context:property-placeholder location="classpath:config/db/db_jdbc.properties" ignore-unresolvable="true"/>
 
 	<!-- 数据源的配置 -->
 	<bean id="dataSource" name="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
@@ -51,9 +57,17 @@
 	<bean id="jdbc" class="org.springframework.jdbc.core.JdbcTemplate" scope="prototype">
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
-	<!-- 自定义数据库 -->
-	<bean id="dao"  class="com.tool.cfg.base.data.db.JdbcTemplateImpl">
+	<!-- 自定义数据库oracle -->
+	<!--<bean id="dao"  class="com.tool.cfg.base.data.db.JdbcTemplateImpl">
+		<property name="jdbcTemplate" ref="jdbc"></property>
+	</bean>-->
+	<!-- 自定义数据库mysql-->
+	<bean id="dao"  class="com.tool.cfg.base.data.db.JdbcWithMySql">
 		<property name="jdbcTemplate" ref="jdbc"></property>
 	</bean>
 
+	<context:component-scan
+			base-package="com.framework.service,com.framework.dao">
+	</context:component-scan>
+	<context:component-scan base-package="com.tool.cfg" />
 </beans>

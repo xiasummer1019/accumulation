@@ -40,6 +40,15 @@ public class StringUtil {
      * @param maxLength
      * @return boolean
      */
+    public static boolean isOverLengthAndEmpty(String value,int minLength, int maxLength) {
+        if(isEmpty(value)) return false;
+        if(minLength<0) new IllegalArgumentException("minLength must be greater than 0.");
+        if(minLength>maxLength) new IllegalArgumentException("maxLength must be greater than minLength.");
+        if (value.length() >=minLength && value.length()<=maxLength)
+            return true;
+        return false;
+    }
+
     public static boolean isOverLengthAndEmpty(Object value,int minLength, int maxLength) {
         if(isEmpty(value)) return false;
         if (minLength >= 0 && String.valueOf(value).length() >=minLength && String.valueOf(value).length()<=maxLength)

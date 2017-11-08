@@ -5,18 +5,9 @@ import java.io.*;
 /**
  * Created by XM on 2017/9/8.
  */
-public class FileIOUtil {
-
+public class FileIoUtil {
     static final long serialVersionUID = 1L;
 
-    public static void main(String[] args) {
-        try {
-            String str = new String(readFromFile("D://abc.txt").getBytes());
-            System.out.println(str);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-    }
 
     /**
      * 读文件 默认编码
@@ -68,7 +59,7 @@ public class FileIOUtil {
      */
     public static String readFromFile(String path,String charsetName) throws IOException{
         StringBuffer sbf = new StringBuffer();
-        //文件流
+
         FileInputStream fis = null;
         //文件字符流
         InputStreamReader isr = null;
@@ -111,6 +102,7 @@ public class FileIOUtil {
         return sbf.toString();
     }
 
+    //todo 存文件
     public void writeToFile(String content){
 
     }

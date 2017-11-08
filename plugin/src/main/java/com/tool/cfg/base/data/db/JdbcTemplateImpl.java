@@ -21,7 +21,7 @@ import java.util.Map;
 
 /**
  * <p>JdbcTempletImpl</p>
- * <p>描述:</p>
+ * <p>描述:oracle配置</p>
  */
 @SuppressWarnings("unchecked")
 public class JdbcTemplateImpl implements IDaoUtil{

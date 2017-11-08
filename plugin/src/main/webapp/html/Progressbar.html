@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+
+    <title>进度条</title>
+
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+</head>
+<body>
+
+<div id="div11" class="progress progress-striped active" style="height: 2px">
+    <div id="div1" class="progress-bar progress-bar-success">
+        <span class="sr-only">40% 完成</span>
+    </div>
+
+</div>
+
+</div>
+</body>
+<script src="../js/jquery.js"></script>
+<script src="../js/bootstrap.js"></script>
+<script type="text/javascript">
+    var progress = 1;
+    var totalWidth = $('#div11').css('width');
+    var initstr='';
+    $(function () {
+        initstr = setInterval("change('div1')",100);
+    })
+    function change(id){
+       // console.log(progress);
+        $('#'+id).css({
+            width:progress
+        })
+        if(progress>=totalWidth){
+            clearInterval(initstr);
+            $('#'+id).hide();
+        }
+        progress= progress+100;
+    }
+</script>
+</html>
